@@ -2,31 +2,30 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 
-import { database } from '../config/firebase';
-import { ref, child, get } from 'firebase/database';
+import { db } from '../config/firebase';
+import { collection, getDocs } from 'firebase/firestore/lite';
 import Search from '../components/Search';
+import MyLoader from '../components/Loader';
 
 const PostPage = () => {
   const [posts, setPosts] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
+  const [isLoaded, setLoaded] = useState(true);
+  const postsColletionRef = collection(db, 'posts');
 
+  console.log(isLoaded);
   const postQuery = searchParams.get('post') || '';
-  //URL.ua/posts?post=abc&data=
 
   useEffect(() => {
-    const dbRef = ref(database);
-    get(child(dbRef, `/`))
-      .then((snapshot) => {
-        if (snapshot.exists()) {
-          setPosts(snapshot.val());
-        } else {
-          console.log('No data available');
-        }
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+    const getPosts = async () => {
+      const data = await getDocs(postsColletionRef);
+      setPosts(data.docs.map((post) => ({ ...post.data(), id: post.id })));
+    };
+    setLoaded(false);
+    getPosts();
   }, []);
+
+  //URL.ua/posts?post=abc&data=
 
   return (
     <section className="text-gray-600 body-font">
@@ -39,7 +38,6 @@ const PostPage = () => {
           </Link>
           <Search setSearchParams={setSearchParams} postQuery={postQuery} />
         </div>
-
         <div className="flex flex-wrap -m-4">
           {posts
             .filter((post) => post.title.includes(postQuery))
@@ -97,6 +95,14 @@ const PostPage = () => {
                 </div>
               </div>
             ))}
+          <MyLoader
+            speed={3}
+            width={476}
+            height={476}
+            viewBox="0 0 476 476"
+            backgroundColor="#f3f3f3"
+            foregroundColor="#ecebeb"
+          />
         </div>
       </div>
     </section>

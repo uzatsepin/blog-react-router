@@ -1,6 +1,7 @@
 import { useAuth } from '../hook/useAuth';
 import { useNavigate } from 'react-router-dom';
-
+import { db } from '../config/firebase';
+import { addDoc, collection } from 'firebase/firestore/lite';
 const CreatePage = () => {
   const { signout } = useAuth();
   const navigate = useNavigate();
@@ -8,6 +9,26 @@ const CreatePage = () => {
   const goBack = () => {
     navigate(-1);
   };
+
+  const handleAddPage = (event) => {
+    event.preventDefault();
+    const form = event.target.form;
+    const postId = Math.floor(Math.random() * 100000);
+    const postsCollectionRef = collection(db, 'posts');
+
+    addDoc(postsCollectionRef, {
+      id: postId,
+      title: form.title.value,
+      text: form.preview.value,
+      fullText: form.text.value,
+      img: form.img.value,
+      category: form.categories.value,
+      views: Math.floor(Math.random() * 10000),
+    });
+
+    navigate('/posts');
+  };
+
   return (
     <>
       <div className="bg-white py-6 sm:py-8 lg:py-12">
@@ -75,9 +96,10 @@ const CreatePage = () => {
                 Виберіть категорію новини*
               </label>
               <select
-                id="countries"
+                id="categories"
+                name="category"
                 className="w-full bg-gray-50 text-gray-800 border focus:ring ring-indigo-300 rounded outline-none transition duration-100 px-3 py-3">
-                <option defaultValue="news">Виберіть категорію</option>
+                <option>Виберіть категорію</option>
                 <option value="news">Новини</option>
                 <option value="apple">Apple</option>
                 <option value="leaks">Чутки</option>
@@ -87,7 +109,9 @@ const CreatePage = () => {
             </div>
 
             <div className="sm:col-span-2 flex justify-between items-center">
-              <button className="inline-block bg-indigo-500 hover:bg-indigo-600 active:bg-indigo-700 focus-visible:ring ring-indigo-300 text-white text-sm md:text-base font-semibold text-center rounded-lg outline-none transition duration-100 px-8 py-3">
+              <button
+                className="inline-block bg-indigo-500 hover:bg-indigo-600 active:bg-indigo-700 focus-visible:ring ring-indigo-300 text-white text-sm md:text-base font-semibold text-center rounded-lg outline-none transition duration-100 px-8 py-3"
+                onClick={handleAddPage}>
                 Додати новину
               </button>
               <span className="text-gray-500 text-sm">*Обовʼязково</span>

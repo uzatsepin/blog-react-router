@@ -1,29 +1,24 @@
 import React from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import { database } from '../config/firebase';
-import { ref, child, get } from 'firebase/database';
+import { db } from '../config/firebase';
+import { doc, getDoc } from 'firebase/firestore/lite';
 
 const SinglePage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [post, setPost] = useState(null);
 
+  const postsColletionRef = doc(db, 'posts', id);
+
   const goBack = () => navigate(-1);
 
   useEffect(() => {
-    const dbRef = ref(database);
-    get(child(dbRef, `/${id}`))
-      .then((snapshot) => {
-        if (snapshot.exists()) {
-          setPost(snapshot.val());
-        } else {
-          console.log('No data available');
-        }
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+    const getPosts = async () => {
+      const data = await getDoc(postsColletionRef);
+      setPost(data.data());
+    };
+    getPosts();
   }, [id]);
 
   return (
