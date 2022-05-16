@@ -5,16 +5,14 @@ import { Link, useSearchParams } from 'react-router-dom';
 import { db } from '../config/firebase';
 import { collection, getDocs } from 'firebase/firestore/lite';
 import Search from '../components/Search';
-import MyLoader from '../components/Loader';
 import Post from '../components/Post';
+import Loader from '../components/Loader';
 
 const PostPage = () => {
   const [posts, setPosts] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
   const [isLoaded, setLoaded] = useState(true);
   const postsColletionRef = collection(db, 'posts');
-
-  console.log(isLoaded);
   const postQuery = searchParams.get('post') || '';
 
   useEffect(() => {
@@ -22,8 +20,8 @@ const PostPage = () => {
       const data = await getDocs(postsColletionRef);
       setPosts(data.docs.map((post) => ({ ...post.data(), id: post.id })));
     };
-    setLoaded(false);
     getPosts();
+    setLoaded(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -55,7 +53,20 @@ const PostPage = () => {
           </Link>
           <Search setSearchParams={setSearchParams} postQuery={postQuery} />
         </div>
-        <div className="flex flex-wrap -m-4">{itemsRender()}</div>
+        <div className="flex flex-wrap -m-4">
+          {isLoaded ? (
+            <Loader
+              speed={3}
+              width={476}
+              height={476}
+              viewBox="0 0 476 476"
+              backgroundColor="#f3f3f3"
+              foregroundColor="#ecebeb"
+            />
+          ) : (
+            itemsRender()
+          )}
+        </div>
       </div>
     </section>
   );

@@ -16,8 +16,8 @@ const Layout = () => {
                 to="/"
                 className={({ isActive }) =>
                   isActive
-                    ? 'text-indigo-700 text-lg font-semibold transition duration-100'
-                    : 'text-gray-700 text-lg font-semibold'
+                    ? 'text-indigo-600 text-lg font-semibold transition duration-100'
+                    : 'text-gray-600 text-lg font-semibold'
                 }>
                 Домашня
               </NavLink>
@@ -25,8 +25,8 @@ const Layout = () => {
                 to="/posts"
                 className={({ isActive }) =>
                   isActive
-                    ? 'text-indigo-700 text-lg font-semibold transition duration-100'
-                    : 'text-gray-700 text-lg font-semibold'
+                    ? 'text-indigo-600 text-lg font-semibold transition duration-100'
+                    : 'text-gray-600 text-lg font-semibold'
                 }>
                 Новини
               </NavLink>
@@ -34,8 +34,8 @@ const Layout = () => {
                 to="/about"
                 className={({ isActive }) =>
                   isActive
-                    ? 'text-indigo-700 text-lg font-semibold transition duration-100'
-                    : 'text-gray-700 text-lg font-semibold'
+                    ? 'text-indigo-600 text-lg font-semibold transition duration-100'
+                    : 'text-gray-600 text-lg font-semibold'
                 }>
                 Про нас
               </NavLink>
@@ -44,6 +44,7 @@ const Layout = () => {
         </div>
       </div>
       <Outlet />
+      <div className="flex-1"></div>
       <Footer />
     </div>
   );

@@ -5,7 +5,7 @@ const Logo = () => {
   return (
     <Link
       to="/"
-      className="inline-flex items-center text-black-800 text-2xl md:text-3xl font-bold gap-2.5">
+      className="inline-flex items-center text-gray-600 text-2xl md:text-3xl font-bold gap-2.5">
       <svg
         width="95"
         height="94"
