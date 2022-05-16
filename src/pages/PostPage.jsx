@@ -23,6 +23,7 @@ const PostPage = () => {
     };
     setLoaded(false);
     getPosts();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   //URL.ua/posts?post=abc&data=
@@ -95,14 +96,18 @@ const PostPage = () => {
                 </div>
               </div>
             ))}
-          <MyLoader
-            speed={3}
-            width={476}
-            height={476}
-            viewBox="0 0 476 476"
-            backgroundColor="#f3f3f3"
-            foregroundColor="#ecebeb"
-          />
+          {isLoaded ? (
+            <MyLoader
+              speed={3}
+              width={476}
+              height={476}
+              viewBox="0 0 476 476"
+              backgroundColor="#f3f3f3"
+              foregroundColor="#ecebeb"
+            />
+          ) : (
+            ''
+          )}
         </div>
       </div>
     </section>

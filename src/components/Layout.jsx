@@ -5,7 +5,7 @@ import Logo from './Logo';
 
 const Layout = () => {
   return (
-    <>
+    <div className="h-screen flex flex-col justify-between">
       <div className="bg-white">
         <div className="max-w-screen-2xl px-4 md:px-8 mx-auto">
           <header className="flex justify-between items-center py-2 md:py-8 ">
@@ -45,7 +45,7 @@ const Layout = () => {
       </div>
       <Outlet />
       <Footer />
-    </>
+    </div>
   );
 };
 

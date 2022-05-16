@@ -19,6 +19,7 @@ const SinglePage = () => {
       setPost(data.data());
     };
     getPosts();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
   return (
