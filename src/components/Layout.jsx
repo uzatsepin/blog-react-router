@@ -8,10 +8,10 @@ const Layout = () => {
     <div className="h-screen flex flex-col justify-between">
       <div className="container px-5 mx-auto bg-white">
         <div className="max-w-screen-2xl px-4 md:px-8 mx-auto">
-          <header className="flex justify-between items-center py-2 md:py-8 ">
+          <header className="flex md:justify-between items-center py-8 md:py-8 sm:py-8 justify-center">
             <Logo />
             {/* <!-- nav - start --> */}
-            <nav className="hidden lg:flex gap-12">
+            <nav className="hidden md:flex gap-12">
               <NavLink
                 to="/"
                 className={({ isActive }) =>

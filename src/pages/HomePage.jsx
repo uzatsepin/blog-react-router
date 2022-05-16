@@ -7,7 +7,7 @@ const HomePage = () => {
       <div className="max-w-screen-2xl px-4 md:px-8 mx-auto">
         <section className="flex flex-col lg:flex-row justify-between gap-6 sm:gap-10 md:gap-16">
           {/* <!-- content - start --> */}
-          <div className="xl:w-5/12 flex flex-col justify-center sm:text-center lg:text-left lg:py-12 xl:py-24">
+          <div className="xl:w-5/12 flex flex-col justify-center text-center lg:text-left lg:py-12 xl:py-24">
             <p className="text-indigo-500 md:text-lg xl:text-xl font-semibold mb-4 md:mb-6">
               Ми пишаємося новинами
             </p>
